@@ -31,6 +31,19 @@ namespace NikkiSelector
 
         private static void Load(string name, string uri)
         {
+            var vs = new double[] {
+                /* 華麗 */0,
+                /* シンプル */0,
+                /* エレガント */0,
+                /* アクティブ */0,
+                /* 大人 */0,
+                /* キュート */0,
+                /* セクシー */0,
+                /* ピュア */0,
+                /* ウォーム */0,
+                /* クール */0,
+            };
+
             using (var wc = new WebClient())
             {
                 wc.Encoding = Encoding.UTF8;
@@ -39,21 +52,42 @@ namespace NikkiSelector
                     var doc = new XmlDocument();
                     doc.Load(sgml);
 
-                    foreach (XmlElement elem in doc.GetElementsByTagName("table").Cast<XmlElement>())
+                    bool h = true;
+                    using (var stream = new StreamWriter(name + ".csv", false, Encoding.Default))
                     {
-                        var tid = elem.GetAttribute("id");
-                        if (!tid.StartsWith("ui_wikidb_table_")) continue;
-
-                        using (var stream = new StreamWriter(name + ".csv", false, Encoding.Default))
+                        double cv(string v)
                         {
-                            stream.WriteLine(string.Join(",", elem.GetElementsByTagName("th").Cast<XmlElement>().Select(t => t.InnerText)));
+                            switch (v.Trim())
+                            {
+                                case "C": return 1;
+                                case "B": return 2;
+                                case "A": return 3;
+                                case "S": return 4;
+                                case "SS": return 5;
+                            }
+
+                            return 0;
+                        }
+
+                        foreach (XmlElement elem in doc.GetElementsByTagName("table").Cast<XmlElement>())
+                        {
+                            var tid = elem.GetAttribute("id");
+                            if (!tid.StartsWith("ui_wikidb_table_")) continue;
+
+                            if (h)
+                            {
+                                h = false;
+                                stream.WriteLine("score" + string.Join(",", elem.GetElementsByTagName("th").Cast<XmlElement>().Select(t => t.InnerText)));
+                            }
 
                             foreach (var item in from trs in elem.GetElementsByTagName("tr").Cast<XmlElement>()
                                                  let cs = trs.GetElementsByTagName("td").Cast<XmlElement>().ToList()
                                                  where cs.Count != 0
-                                                 select string.Join(",", cs.Select(t => t.InnerText)))
+                                                 select cs.Select(t => t.InnerText).ToList())
                             {
-                                stream.WriteLine(item);
+                                var r = item.Skip(4).Take(10).Select(t => cv(t)).ToList();
+                                var sc = Enumerable.Range(0, 10).Select(t => r[t] * vs[t]).Sum();
+                                stream.WriteLine(sc + "," + string.Join(",", item));
                             }
                         }
                     }
