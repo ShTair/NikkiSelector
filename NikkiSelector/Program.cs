@@ -77,7 +77,7 @@ namespace NikkiSelector
                             if (h)
                             {
                                 h = false;
-                                stream.WriteLine("score" + string.Join(",", elem.GetElementsByTagName("th").Cast<XmlElement>().Select(t => t.InnerText)));
+                                stream.WriteLine("score," + string.Join(",", elem.GetElementsByTagName("th").Cast<XmlElement>().Select(t => t.InnerText)));
                             }
 
                             foreach (var item in from trs in elem.GetElementsByTagName("tr").Cast<XmlElement>()
