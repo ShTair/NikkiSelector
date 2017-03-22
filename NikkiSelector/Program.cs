@@ -65,11 +65,15 @@ namespace NikkiSelector
                         {
                             switch (v.Trim())
                             {
-                                case "C": return 1;
-                                case "B": return 2;
-                                case "A": return 3;
-                                case "S": return 4;
-                                case "SS": return 5;
+                                case "X": return 0;
+                                case "D": return 2;
+                                case "C": return 3;
+                                case "B": return 4;
+                                case "A": return 5;
+                                case "S": return 7;
+                                case "SS": return 9;
+                                case "SSS": return 11;
+                                case "SSSS": return 13;
                             }
 
                             return 0;
