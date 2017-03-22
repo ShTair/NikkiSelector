@@ -18,22 +18,22 @@ namespace NikkiSelector
         {
             LoadCsv(args[0]);
 
-            Load("1_ヘアスタイル", "https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB");
-            Load("2_ドレス", "https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9");
-            Load("3_コート", "https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88");
-            Load("4_トップス", "https://miraclenikki.gamerch.com/%E3%83%88%E3%83%83%E3%83%97%E3%82%B9");
-            Load("5_ボトムス", "https://miraclenikki.gamerch.com/%E3%83%9C%E3%83%88%E3%83%A0%E3%82%B9");
-            Load("6_靴下", "https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B");
-            Load("7_シューズ", "https://miraclenikki.gamerch.com/%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA");
-            Load("15_メイク", "https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF");
+            //Load(0, "1_ヘアスタイル", "https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB");
+            Load(10000, "2_ドレス", "https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9");
+            //Load("3_コート", "https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88");
+            //Load("4_トップス", "https://miraclenikki.gamerch.com/%E3%83%88%E3%83%83%E3%83%97%E3%82%B9");
+            //Load("5_ボトムス", "https://miraclenikki.gamerch.com/%E3%83%9C%E3%83%88%E3%83%A0%E3%82%B9");
+            //Load("6_靴下", "https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B");
+            //Load("7_シューズ", "https://miraclenikki.gamerch.com/%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA");
+            //Load("15_メイク", "https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF");
 
-            Load("8_ヘアアクセサリー", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD");
-            Load("9_耳飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%80%B3");
-            Load("10_首飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A6%96");
-            Load("11_腕飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%95");
-            Load("12_手持品", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E6%89%8B");
-            Load("13_腰飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%B0");
-            Load("14_特殊", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A");
+            //Load("8_ヘアアクセサリー", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A0%AD");
+            //Load("9_耳飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%80%B3");
+            //Load("10_首飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E9%A6%96");
+            //Load("11_腕飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%95");
+            //Load("12_手持品", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E6%89%8B");
+            //Load("13_腰飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%B0");
+            //Load("14_特殊", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A");
 
             SaveCsv(args[0]);
         }
@@ -77,7 +77,7 @@ FormatVersion,3,アクセサリーの種類を細分化しました,,,,,,,,,,,,,
             }
         }
 
-        private static void Load(string name, string uri)
+        private static void Load(int bid, string name, string uri)
         {
             var z = new double[] { 0, 2.0 / 3, 3.0 / 3, 4.0 / 3 };
 
@@ -146,6 +146,23 @@ FormatVersion,3,アクセサリーの種類を細分化しました,,,,,,,,,,,,,
                                 var r = item.Skip(4).Take(10).Select(t => cv(t)).ToList();
                                 var sc = Enumerable.Range(0, 10).Select(t => r[t] * vs[t]).Sum();
                                 stream.WriteLine(sc + "," + string.Join(",", item));
+
+                                var id = int.Parse(item[1]) + bid;
+                                var si = Items[id];
+                                si.Kind = item[0];
+                                si.Name = item[2].Replace("（ヘアスタイル）", "").Replace("（", "(").Replace("）", ")");
+                                si.Rarity = item[3].Substring(1);
+                                si.P11 = item[4].ToUpper();
+                                si.P12 = item[5].ToUpper();
+                                si.P21 = item[6].ToUpper();
+                                si.P22 = item[7].ToUpper();
+                                si.P31 = item[8].ToUpper();
+                                si.P32 = item[9].ToUpper();
+                                si.P41 = item[10].ToUpper();
+                                si.P42 = item[11].ToUpper();
+                                si.P51 = item[12].ToUpper();
+                                si.P52 = item[13].ToUpper();
+                                si.Tags = (item[14] + " " + item[15]).Trim();
                             }
                         }
                     }
