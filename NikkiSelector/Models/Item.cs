@@ -1,4 +1,6 @@
-﻿namespace NikkiSelector.Models
+﻿using CsvHelper.Configuration;
+
+namespace NikkiSelector.Models
 {
     class Item
     {
@@ -32,5 +34,30 @@
         public string Tags { get; set; }
 
         public string Color { get; set; }
+
+        public sealed class Map : CsvClassMap<Item>
+        {
+            public Map()
+            {
+                Map(m => m.Id).Index(0);
+                Map(m => m.ItemId).Index(1);
+                Map(m => m.Kind).Index(2);
+                Map(m => m.Memo1).Index(3);
+                Map(m => m.Name).Index(4);
+                Map(m => m.Rarity).Index(5);
+                Map(m => m.P11).Index(6);
+                Map(m => m.P12).Index(7);
+                Map(m => m.P21).Index(8);
+                Map(m => m.P22).Index(9);
+                Map(m => m.P31).Index(10);
+                Map(m => m.P32).Index(11);
+                Map(m => m.P41).Index(12);
+                Map(m => m.P42).Index(13);
+                Map(m => m.P51).Index(14);
+                Map(m => m.P52).Index(15);
+                Map(m => m.Tags).Index(16);
+                Map(m => m.Color).Index(17);
+            }
+        }
     }
 }

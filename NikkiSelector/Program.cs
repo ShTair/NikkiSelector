@@ -1,4 +1,7 @@
-﻿using Sgml;
+﻿using CsvHelper;
+using NikkiSelector.Models;
+using Sgml;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -9,8 +12,12 @@ namespace NikkiSelector
 {
     class Program
     {
+        private static Dictionary<int, Item> Items;
+
         static void Main(string[] args)
         {
+            LoadCsv(args[0]);
+
             Load("1_ヘアスタイル", "https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB");
             Load("2_ドレス", "https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9");
             Load("3_コート", "https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88");
@@ -27,6 +34,47 @@ namespace NikkiSelector
             Load("12_手持品", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E6%89%8B");
             Load("13_腰飾り", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E8%85%B0");
             Load("14_特殊", "https://miraclenikki.gamerch.com/%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B5%E3%83%AA%E3%83%BC%E3%83%BB%E7%89%B9%E6%AE%8A");
+
+            SaveCsv(args[0]);
+        }
+
+        private static void LoadCsv(string path)
+        {
+            using (var reader = File.OpenText(path))
+            {
+                // headerを10行読み飛ばす
+                for (int i = 0; i < 9; i++) reader.ReadLine();
+
+                using (var csv = new CsvReader(reader))
+                {
+                    csv.Configuration.RegisterClassMap<Item.Map>();
+                    Items = csv.GetRecords<Item>().ToDictionary(t => t.Id, t => t);
+                }
+            }
+        }
+
+        private static void SaveCsv(string path)
+        {
+            using (var writer = new StreamWriter(path, false, new UTF8Encoding(true)))
+            {
+                writer.WriteLine(@"MiracleNikkiJp_items.csv,,,,,,,,,,,,,,,,,
+FormatVersion,3,アクセサリーの種類を細分化しました,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+このフォーマットでは、アイテムの番号を効率よく管理するために、通しの整理番号を付与しています。,,,,,,,,,,,,,,,,,
+整理番号1は必ず11行にします。最後の10行は必ず、種類と名前を－にした「空き領域」にします。,,,,,,,,,,,,,,,,,
+整理番号と、番号(アプリ中の番号)と、種類の関係は固定で、変更しないこととします。この固定により整理番号とアイテムの所持情報をリンクすることができ、このファイルの何行目なのかも特定できるようになります。,,,,,,,,,,,,,,,,,
+アイテムの種類毎に番号1から10000まで記述可能な書式になっています。全部埋まると90000アイテムです。アクセサリーはまとめて10000までです。,,,,,,,,,,,,,,,,,
+種類の一覧は、整理番号89901から記述しています。,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,
+整理番号,番号(アプリ中の番号),種類,－,名前,ハート数,華麗,シンプル,エレガント,アクティブ,大人,キュート,セクシー,ピュア,ウォーム,クール,タグ (複数は空白区切り),色 (複数は空白区切り)");
+
+                using (var csv = new CsvWriter(writer))
+                {
+                    csv.Configuration.RegisterClassMap<Item.Map>();
+                    csv.Configuration.HasHeaderRecord = false;
+                    csv.WriteRecords(Items.Values);
+                }
+            }
         }
 
         private static void Load(string name, string uri)
