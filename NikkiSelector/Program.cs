@@ -18,12 +18,12 @@ namespace NikkiSelector
         {
             LoadCsv(args[0]);
 
-            Load(0, "1_ヘアスタイル", "https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB");
-            Load(10000, "2_ドレス", "https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9");
-            Load(20000, "3_コート", "https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88");
-            Load(30000, "4_トップス", "https://miraclenikki.gamerch.com/%E3%83%88%E3%83%83%E3%83%97%E3%82%B9");
-            //Load("5_ボトムス", "https://miraclenikki.gamerch.com/%E3%83%9C%E3%83%88%E3%83%A0%E3%82%B9");
-            //Load("6_靴下", "https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B");
+            Load(0, "1_ヘアスタイル", "https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB", false);
+            Load(10000, "2_ドレス", "https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9", false);
+            Load(20000, "3_コート", "https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88", false);
+            Load(30000, "4_トップス", "https://miraclenikki.gamerch.com/%E3%83%88%E3%83%83%E3%83%97%E3%82%B9", false);
+            Load(40000, "5_ボトムス", "https://miraclenikki.gamerch.com/%E3%83%9C%E3%83%88%E3%83%A0%E3%82%B9", false);
+            Load(50000, "6_靴下", "https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B", true);
             //Load("7_シューズ", "https://miraclenikki.gamerch.com/%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA");
             //Load("15_メイク", "https://miraclenikki.gamerch.com/%E3%83%A1%E3%82%A4%E3%82%AF");
 
@@ -77,7 +77,7 @@ FormatVersion,3,アクセサリーの種類を細分化しました,,,,,,,,,,,,,
             }
         }
 
-        private static void Load(int bid, string name, string uri)
+        private static void Load(int bid, string name, string uri, bool hasPart)
         {
             var z = new double[] { 0, 2.0 / 3, 3.0 / 3, 4.0 / 3 };
 
@@ -147,34 +147,61 @@ FormatVersion,3,アクセサリーの種類を細分化しました,,,,,,,,,,,,,
                                 var sc = Enumerable.Range(0, 10).Select(t => r[t] * vs[t]).Sum();
                                 stream.WriteLine(sc + "," + string.Join(",", item));
 
-                                var iname = item[2].Replace("（", "(").Replace("）", ")").Replace("(ヘアスタイル)", "").Replace("(トップス)", "");
+                                var offset = 0;
+                                if (hasPart) offset = 1;
+
+                                var iname = item[2 + offset].Replace("（", "(").Replace("）", ")")
+                                    .Replace("(ヘアスタイル)", "")
+                                    .Replace("(ドレス)", "")
+                                    .Replace("(コート)", "")
+                                    .Replace("(トップス)", "")
+                                    .Replace("(ボトムス)", "")
+                                    .Replace("(靴下)", "");
                                 switch (iname)
                                 {
                                     case "パールレディ": iname = "パールレディー"; break;
                                 }
 
-                                var id = int.Parse(item[1]) + bid;
+                                var id = int.Parse(item[1 + offset]) + bid;
 
                                 switch (id)
                                 {
-                                    case 198: continue;
+                                    case 50067: continue;
+                                    case 50185: continue;
                                 }
 
                                 var si = Items[id];
-                                si.Kind = item[0];
+                                if (hasPart) si.Kind = item[0] + item[1];
+                                else si.Kind = item[0];
                                 si.Name = iname;
-                                si.Rarity = item[3].Substring(1);
-                                si.P11 = item[4].ToUpper();
-                                si.P12 = item[5].ToUpper();
-                                si.P21 = item[6].ToUpper();
-                                si.P22 = item[7].ToUpper();
-                                si.P31 = item[8].ToUpper();
-                                si.P32 = item[9].ToUpper();
-                                si.P41 = item[10].ToUpper();
-                                si.P42 = item[11].ToUpper();
-                                si.P51 = item[12].ToUpper();
-                                si.P52 = item[13].ToUpper();
-                                si.Tags = (item[14] + " " + item[15]).Trim();
+                                si.Rarity = item[3 + offset].Substring(1);
+                                si.P11 = item[4 + offset].ToUpper();
+                                si.P12 = item[5 + offset].ToUpper();
+                                si.P21 = item[6 + offset].ToUpper();
+                                si.P22 = item[7 + offset].ToUpper();
+                                si.P31 = item[8 + offset].ToUpper();
+                                si.P32 = item[9 + offset].ToUpper();
+                                si.P41 = item[10 + offset].ToUpper();
+                                si.P42 = item[11 + offset].ToUpper();
+                                si.P51 = item[12 + offset].ToUpper();
+                                si.P52 = item[13 + offset].ToUpper();
+                                si.Tags = (item[14 + offset] + " " + item[15 + offset]).Trim();
+
+                                if (string.IsNullOrWhiteSpace(si.P11 + si.P12)
+                                    || string.IsNullOrWhiteSpace(si.P21 + si.P22)
+                                    || string.IsNullOrWhiteSpace(si.P31 + si.P32)
+                                    || string.IsNullOrWhiteSpace(si.P41 + si.P42)
+                                    || string.IsNullOrWhiteSpace(si.P51 + si.P52))
+                                {
+                                    si.Name = "";
+                                }
+
+                                switch (id)
+                                {
+                                    case 10398:
+                                        si.Name = "絶世の美女(墨)";
+                                        break;
+                                }
                             }
                         }
                     }
