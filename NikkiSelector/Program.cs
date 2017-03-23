@@ -18,10 +18,10 @@ namespace NikkiSelector
         {
             LoadCsv(args[0]);
 
-            //Load(0, "1_ヘアスタイル", "https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB");
+            Load(0, "1_ヘアスタイル", "https://miraclenikki.gamerch.com/%E3%83%98%E3%82%A2%E3%82%B9%E3%82%BF%E3%82%A4%E3%83%AB");
             Load(10000, "2_ドレス", "https://miraclenikki.gamerch.com/%E3%83%89%E3%83%AC%E3%82%B9");
-            //Load("3_コート", "https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88");
-            //Load("4_トップス", "https://miraclenikki.gamerch.com/%E3%83%88%E3%83%83%E3%83%97%E3%82%B9");
+            Load(20000, "3_コート", "https://miraclenikki.gamerch.com/%E3%82%B3%E3%83%BC%E3%83%88");
+            Load(30000, "4_トップス", "https://miraclenikki.gamerch.com/%E3%83%88%E3%83%83%E3%83%97%E3%82%B9");
             //Load("5_ボトムス", "https://miraclenikki.gamerch.com/%E3%83%9C%E3%83%88%E3%83%A0%E3%82%B9");
             //Load("6_靴下", "https://miraclenikki.gamerch.com/%E9%9D%B4%E4%B8%8B");
             //Load("7_シューズ", "https://miraclenikki.gamerch.com/%E3%82%B7%E3%83%A5%E3%83%BC%E3%82%BA");
@@ -147,10 +147,22 @@ FormatVersion,3,アクセサリーの種類を細分化しました,,,,,,,,,,,,,
                                 var sc = Enumerable.Range(0, 10).Select(t => r[t] * vs[t]).Sum();
                                 stream.WriteLine(sc + "," + string.Join(",", item));
 
+                                var iname = item[2].Replace("（", "(").Replace("）", ")").Replace("(ヘアスタイル)", "").Replace("(トップス)", "");
+                                switch (iname)
+                                {
+                                    case "パールレディ": iname = "パールレディー"; break;
+                                }
+
                                 var id = int.Parse(item[1]) + bid;
+
+                                switch (id)
+                                {
+                                    case 198: continue;
+                                }
+
                                 var si = Items[id];
                                 si.Kind = item[0];
-                                si.Name = item[2].Replace("（ヘアスタイル）", "").Replace("（", "(").Replace("）", ")");
+                                si.Name = iname;
                                 si.Rarity = item[3].Substring(1);
                                 si.P11 = item[4].ToUpper();
                                 si.P12 = item[5].ToUpper();
