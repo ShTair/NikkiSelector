@@ -201,6 +201,9 @@ FormatVersion,3,アクセサリーの種類を細分化しました,,,,,,,,,,,,,
                                     case 10398:
                                         si.Name = "絶世の美女(墨)";
                                         break;
+                                    case 30339:
+                                        si.Tags = "スポーティ";
+                                        break;
                                 }
                             }
                         }
