@@ -28,7 +28,7 @@ namespace NikkiSelector
             }
 
             var gs = items.GroupBy(t => t.Kind);
-            Directory.Delete("res", true);
+            if (Directory.Exists("res")) Directory.Delete("res", true);
             Directory.CreateDirectory("res");
 
             int XNum(string v)
